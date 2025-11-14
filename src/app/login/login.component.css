@@ -1,0 +1,52 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
+.gradient-custom {
+  height: 600px;
+    /* fallback for old browsers */
+  margin-top: -24px;
+     /* Half height */
+  /* Center and scale the image nicely */
+  background-image: url('/Senior-Stay-Reservations-System/src/assets/images/login.jpg');
+  background-position: cover;
+  background-repeat:no-repeat;
+  background-size: cover;
+  
+  }
+  /* Update input fields to be transparent */
+.form-group input {
+  background-color: transparent;
+  border-bottom: 1px solid #ced4da; /* Add a bottom border for better visibility */
+
+  box-shadow: none; /* Optional: Remove box-shadow */
+}
+
+/* Style the input labels */
+.form-group label {
+  color: #fff; /* Set label color */
+}
+
+/* Style the input borders when focused */
+.form-group input:focus {
+  border-color: #fff; /* Set border color when focused */
+}
+
+/* Style the placeholder text */
+.form-group input::placeholder {
+  color: #fff; /* Set placeholder color */
+}
+div{
+  color: white;
+}

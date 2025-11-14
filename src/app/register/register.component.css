@@ -1,0 +1,102 @@
+.gradient-custom {
+  margin-top: -24px;
+    /* fallback for old browsers */
+
+     /* Half height */
+  /* Center and scale the image nicely */
+  background-image: url('/Senior-Stay-Reservations-System/src/assets/images/register.jpg');
+  background-position: center;
+  background-repeat:repeat;
+  background-size: contain;
+  
+  
+  }
+
+  .centering {
+    color: white;
+    display: flex;
+    justify-content: center;
+  }
+  .card-registration {
+    z-index: 1; /* Ensure formulaire is above the footer */
+  }
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    opacity: 0.5 !important;
+    padding-right: .75em;
+  }
+  .card-registration .select-arrow {
+    top: 13px;
+  }
+  .form-select {
+    flex: 1; /* Let the select element take up remaining space */
+    margin-right: 50px; /* Optional: Add some spacing between elements */
+}
+.input-group{
+  display: flex; /* Use flexbox layout */
+}
+
+.number-input {
+  width: 60% !important; /* Adjust the width as needed */
+  /* Add any additional styling for the number input box */
+}
+.flexing{
+  display: flex;
+}
+h6{
+  color: white;
+}
+h4{
+  color: white;
+}
+/* Update input fields to be transparent */
+.form-outline input {
+  background-color: transparent;
+  border-bottom: 1px solid #ced4da; /* Add a bottom border for better visibility */
+  box-shadow: none; /* Optional: Remove box-shadow */
+}
+
+/* Style the input labels */
+.form-outline label {
+  color: #fff; /* Set label color */
+}
+
+/* Style the input borders when focused */
+.form-outline input:focus {
+  border-color: #fff; /* Set border color when focused */
+}
+
+/* Style the placeholder text */
+.form-outline input::placeholder {
+  color: #fff; /* Set placeholder color */
+}
+/* Update select and options to be transparent */
+.form-outline select {
+  background-color: transparent;
+  border-bottom: 1px solid #ced4da; /* Add a bottom border for better visibility */
+  box-shadow: none; /* Optional: Remove box-shadow */
+  color: #fff; /* Set text color */
+}
+
+/* Style the select labels */
+.form-outline select:focus {
+  border-color: #fff; /* Set border color when focused */
+}
+
+/* Style the option text */
+.form-outline option {
+  background-color: transparent;
+  color: black; /* Set option text color */
+}
+
+/* Update input text color to white */
+.form-outline input[type="text"],
+.form-outline input[type="password"],
+.form-outline input[type="email"],
+.form-outline input[type="tel"],
+.form-outline input[type="date"],
+.form-outline input[type="number"] {
+    color: #fff; /* Set text color to white */
+}

@@ -1,0 +1,60 @@
+<div class="reservations-container">
+  <h2>Mes Réservations</h2>
+
+  <div *ngIf="rooms.length === 0" class="no-reservations">
+    Vous n'avez aucune réservation pour le moment.
+  </div>
+
+  <div *ngFor="let room of rooms" class="reservation-card">
+    <div class="reservation-header">
+      <h3>{{ room.RoomName || 'Chambre' }} - {{ room.hotelid }}</h3>
+      <span class="hours-left" *ngIf="room.hoursLeft > 0">
+        Réservation expirera dans {{ room.hoursLeft }} heures
+      </span>
+      <span class="hours-left expired" *ngIf="room.hoursLeft === 0">
+        Réservation expirée
+      </span>
+    </div>
+
+    <div class="reservation-body">
+      <p><strong>Dates:</strong> {{ room.startDate }} - {{ room.endDate }}</p>
+      <p><strong>Prix:</strong> {{ room.Price }} €</p>
+      <p><strong>ID Réservation:</strong> {{ room.reservationid }}</p>
+      <p><strong>Date Création:</strong> {{ room.creationdate | date:'dd/MM/yyyy' }}</p>
+    </div>
+
+    <div class="reservation-actions">
+      <button (click)="reserveNow({HotelID: room.hotelid}, room)">Réserver à nouveau</button>
+    </div>
+  </div>
+</div>
+<div class="reservations-container">
+  <h2>Mes Réservations</h2>
+
+  <div *ngIf="rooms.length === 0" class="no-reservations">
+    Vous n'avez aucune réservation pour le moment.
+  </div>
+
+  <div *ngFor="let room of rooms" class="reservation-card">
+    <div class="reservation-header">
+      <h3>{{ room.RoomName || 'Chambre' }} - {{ room.hotelid }}</h3>
+      <span class="hours-left" *ngIf="room.hoursLeft > 0">
+        Réservation expirera dans {{ room.hoursLeft }} heures
+      </span>
+      <span class="hours-left expired" *ngIf="room.hoursLeft === 0">
+        Réservation expirée
+      </span>
+    </div>
+
+    <div class="reservation-body">
+      <p><strong>Dates:</strong> {{ room.startDate }} - {{ room.endDate }}</p>
+      <p><strong>Prix:</strong> {{ room.Price }} €</p>
+      <p><strong>ID Réservation:</strong> {{ room.reservationid }}</p>
+      <p><strong>Date Création:</strong> {{ room.creationdate | date:'dd/MM/yyyy' }}</p>
+    </div>
+
+    <div class="reservation-actions">
+      <button (click)="reserveNow({HotelID: room.hotelid}, room)">Réserver à nouveau</button>
+    </div>
+  </div>
+</div>

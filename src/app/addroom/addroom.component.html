@@ -1,0 +1,98 @@
+
+<div class="error-message" *ngIf="authService.LoggedInUser.type === 'Client ' && !authService.IsAdmin"> Seulement les utilisateurs avec un compte de type 'Partenaire' peuvent ajouter leurs proprietés </div>
+<div *ngIf="roomAdded"  class="text-success" style="text-align: center; background-color: white">
+  <p>Merci de nous avoir fait confiance et de choisir Silver Booking !</p>
+  <p>Votre suite a été ajoutée avec succès, pour plus d'informations, n'hésitez pas à nous contacter!</p>
+  <i class="fas fa-check-circle fa-5x"></i> 
+  <p>Cliquez ici pour visiter notre <a routerLink="" style="text-decoration: none;">Page D'accueil</a></p>
+</div> 
+<form  #r="ngForm" class="registration-form" *ngIf="(!roomAdded && hotel) && (authService.LoggedInUser.type !== 'Client'|| authService.IsAdmin)">
+  <div class="container">
+    <div class="row">
+      <!-- Left side: Informations Générales -->
+      <div class="col-md-6">
+        <section class="contact-section">
+          <h2 class="section-heading">À propos de votre proprieté</h2>
+          <!-- General information fields -->
+          <div class="form-section">
+            <div class="form-group">
+              <label style="color: #6b4200" for="OwnerID">Propriétaire:</label>
+              <input type="text" disabled placeholder="ID: {{hotel.OwnerID}}" class="form-control" id="OwnerID">
+            </div>
+          <div class="form-group">
+              <label style="color: #6b4200" for="HotelName">Nom de proprieté:</label>
+              <input type="text" disabled placeholder=" {{hotel.HotelName}}" class="form-control" id="name" required name="HotelName" ngModel>
+          </div>
+          <div class="form-group">
+              <label style="color: #6b4200" for="HotelType">Type de proprieté:</label>
+              <input type="text"  disabled placeholder=" {{hotel.HotelType}}" class="form-control" id="name" required name="HotelType" ngModel>
+          </div>
+          <div class="form-group">
+              <label style="color: #6b4200" for="TypeS">Type de suite: <span style="color:red">*</span></label><br>
+              <select required name="TypeS" class="form-select-lg" id="TypeS" ngModel>
+                <option value="Family Pack" class="resized">Family Pack</option>
+                <option value="Couple Pack" class="resized">Couple Pack</option>
+                <option value="Single Room" class="resized">Single Room</option>
+                <option value="Double Room" class="resized">Double Room</option>
+                <option value="Triple Room" class="resized">Triple Room</option>
+                <option value="Quarter Room" class="resized">Quarter Room</option>              </select>
+          </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Right side: Informations sur Votre Espace -->
+      <div class="col-md-6">
+        <section class="contact-section">
+          <h2 class="section-heading">Ajout d'une nouvelle suite</h2>
+          <div class="form-section">
+            <div class="form-group">
+                <label style="color: #6b4200" for="Occupation">Occupation maximale: <span style="color:red">*</span></label>
+                <input type="text" class="form-control" id="Occupation" required name="Occupation" ngModel>
+            </div>
+            <div class="form-group">
+              <label style="color: #6b4200" for="DescriptionS">Description de suite: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="DescriptionS" required name="DescriptionS" ngModel>
+          </div>
+            <div class="form-group">
+              <label style="color: #6b4200" for="Prix">Prix: <span style="color:red">*</span></label>
+              <input type="number" class="form-control" id="Prix" required name="Prix" ngModel>
+          </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Image upload section -->
+    <section class="contact-section">
+      <h2 style="text-align: left !important; margin-top: 40px;" class="section-heading">Images de proprieté</h2>
+      <div class="form-group">
+        <label style="color: #6b4200" for="hotelImages">Clicker ICI pour ajouter des Images: <span class="required">*</span></label>
+        <div class="custom-file-input">
+          <div *ngIf="!maxuploaded">
+          <input  type="file" id="hotelImages" class="form-control" multiple (change)="handleFilesInput($event)">
+          <label style="color: #6b4200" for="hotelImages" class="file-label"></label>
+          <span class="plus-icon">+</span>
+          <div *ngIf="errimg" style="color: red"> Vous ne pouvez pas télécharger plus de 6 images</div>
+          </div>
+          <button  *ngIf="existantFiles.length == 6" style="background-color: #72000486; color:white;" style="font-size: 12px;" class="btn submit-button" (click)="reupload()">Changes les images</button>
+                <br>
+            <div *ngIf="existantFiles.length > 0" class="image-preview-container">
+              <div *ngFor="let preview of imagePreviews" class="image-preview">
+                <img [src]="preview" class="preview-image" />
+              </div>
+            </div>
+            <br>
+          
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- Submit button -->
+    <div class="form-section">
+      <button [disabled]="!r.valid && !existantFiles" style="background-color: #72000486; color:white;" class="btn submit-button" (click)="AddRoom(r)">Enregistrer</button>
+    </div>
+  </div>
+</form>

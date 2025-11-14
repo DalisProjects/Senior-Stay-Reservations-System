@@ -1,0 +1,38 @@
+<section class="contact-section">
+    <div class="container">
+      <h1 style="color:white;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Contactez-nous</h1>
+      <div class="contact-form">
+        <div *ngIf="emailsent" class="text-success">
+          <p>Votre message a été envoyé avec succès. Merci de nous-contactez</p>
+          <i class="fas fa-check-circle fa-5x"></i> 
+          <p>Cliquez ici pour visiter notre <a routerLink="" style="text-decoration: none;">Page D'accueil</a></p>
+      </div>       
+       <div *ngIf="emailInvalid"  class="text-danger"> Cette adresse e-mail n'est pas valide. Veuillez utiliser une autre adresse e-mail valide.</div>
+        <form *ngIf="!emailsent">
+          <div class="form-group">
+            <label for="user-name">Nom complet / Nom D'Organization<span style="color: red;">*</span></label>
+            <input type="text" id="user-name" name="username" placeholder="Votre nom complet" required [(ngModel)]="username">
+          </div>
+          <div class="form-group">
+            <label for="user-email">Adresse E-mail <span style="color: red;">*</span></label>
+            <input type="email" id="user-email" name="email" placeholder="Votre adresse email" required [(ngModel)]="email">
+          </div>
+          <div class="form-group">
+            <label for="user-phone">Numéro de téléphone</label>
+            <input type="text" id="user-phone" name="phone" placeholder="Votre numéro de téléphone" [(ngModel)]="phone">
+          </div>
+          <div class="form-group">
+            <label for="subject">Sujet</label>
+            <input type="text" id="subject" name="subject" placeholder="Sujet de votre message" required [(ngModel)]="subject">
+          </div>
+          <div class="form-group">
+            <label for="content">Message <span style="color: red;">*</span></label>
+            <textarea id="content" name="content" placeholder="Votre message" required  [(ngModel)]="message"></textarea>
+          </div><br> 
+          <button class="btn btn- btn-lg" [disabled]="!username || email.length < 10|| message.length < 10" style="background-color: #720004;" type="submit" (click)="onSubmit()">Envoyer</button>
+       <br><br> 
+        </form>
+      </div>
+    </div>
+  </section>
+  

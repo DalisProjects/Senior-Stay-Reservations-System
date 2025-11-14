@@ -1,0 +1,283 @@
+<body>
+<div class="container">
+    <h2 class="onwen" style="text-align: center;">Gérer les proprietés</h2>
+    
+    <!-- Button to add a new hotel -->
+    <form #r="ngForm">
+        
+        <!-- Form to add a new hotel -->
+        <div *ngIf="showAddHotelForm" class="card mb-3">
+            <div class="card-header">Ajouter une nouvelle proprieté</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="OwnerID">Propriétaire: <span style="color:red">*</span></label>
+                    <select class="form-control" placeholder="Select User" id="OwnerID" name="OwnerID" [(ngModel)]="selectedUserId" (change)="fetchUsers();">
+                      <option value="" disabled>Select User</option>
+                      <option style="color:black" *ngFor="let user of users" [value]="user.id"> ID: {{user.id}} - {{ user.lastname }} {{ user.username }}</option>
+                    </select>
+                  </div>
+                   
+
+          <div class="mb-3">
+              <label for="HotelName">Nom d'Hotel: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="name" required name="HotelName" ngModel>
+          </div>
+          <div class="mb-3">
+              <label for="Email">E-mail: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="Email" required name="Email" ngModel>
+          </div>
+          <div class="mb-3">
+              <label for="numr">Numéro de téléphone: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="numr" required name="PhoneNumber" ngModel>
+          </div>
+          <div class="mb-3">
+            <label style="color: #6b4200" for="HotelType">Type de proprieté: <span style="color:red">*</span></label> <br>
+              <select id="HotelType" aria-placeholder="Types des proprietés" class="custom-select" required name="HotelType" ngModel>
+                <option disabled selected>Sélectionnez un type</option>
+                <option value="Hôtel">Hôtel</option>
+                <option value="Maison d'hôtes">Maison d'hôtes</option>
+                <option value="Villa">Villa</option>
+                <option value="Appartement">Appartement</option>
+                <option value="EPHAD">EPHAD</option>
+            </select>
+          </div>
+          <div class="mb-3">
+              <label for="Description">Hotel Description: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="name" required name="Description" ngModel>
+          </div>
+  
+            <div class="mb-3">
+              <label for="HotelLocation">Ligne D'adresse 1: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="HotelLocation" required name="AddressLine1" ngModel>
+          </div>
+          <div class="mb-3">
+              <label for="location2">Ligne D'adresse 2: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="location2" required name="AddressLine2" ngModel>
+          </div>
+          <div class="mb-3">
+            <label for="Localisation">Coordonnées Géographiques <span style="font-size: smaller; color: rgb(168, 163, 163)">(e.g., "37.7749,-122.4194")</span>: <span style="color:red">*</span></label>
+            <input type="text" class="form-control" id="Localisation" required name="localisation" ngModel>
+        </div>
+          <div class="mb-3">
+              <label for="Ville">Ville: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="Ville" required name="City" ngModel>
+          </div>
+          <div class="mb-3">
+              <label for="Code">Code Postal: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="Code" required name="PostalCode" ngModel>
+          </div>
+          <div class="mb-3">
+              <label for="Pays">Pays: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="Pays" required name="Country" ngModel>
+          </div>
+  
+          <div class="mb-3">
+              <label for="site">Site Web: <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="site" required name="Website" ngModel>
+          </div>
+  
+          <div class="mb-3">
+            <label for="Star">Étoiles: <span style="color:red">*</span></label><br>
+            <select  id="Star" required  name="StarRating" ngModel>
+                <option [value]="1">1</option>
+                <option [value]="2">2</option>
+                <option [value]="3">3</option>
+                <option [value]="4">4</option>
+                <option [value]="5">5</option>
+            </select>
+          </div>
+
+
+            <div class="form-group">
+              <label style="color: #6b4200" for="hotelImages">Hotel Images: <span class="required">*</span></label>
+              <div class="custom-file-input">
+                <div *ngIf="!maxuploaded">
+                <input  type="file" id="hotelImages" class="form-control" multiple (change)="handleFilesInput($event)">
+                <label style="color: #6b4200" for="hotelImages" class="file-label"></label>
+                <span class="plus-icon">+</span>
+                <div *ngIf="errimg" style="color: red"> Vous ne pouvez pas télécharger plus de 6 images</div>
+                </div>
+                <button  style="background-color: #72000486; color:white;" *ngIf="existantFiles.length == 6" style="font-size: 12px;" class="btn submit-button" (click)="reupload()">Changes les images</button>
+<br>
+                  <div *ngIf="existantFiles.length > 0" class="image-preview-container">
+                    <div *ngFor="let preview of imagePreviews" class="image-preview">
+                      <img [src]="preview" class="preview-image" />
+                    </div>
+                  </div>
+                  <br>
+                
+              </div>
+            </div>
+
+          <button [disabled]="!r.valid && existantFiles" class="btn btn-lg" style="background-color: #72000486; color:white;" (click)="addHotel(r)">Enregistrer</button>
+          <button class="btn btn-secondary" (click)="toggleAddHotelForm()">Annuler</button>
+            </div>
+        </div>
+    </form>
+    
+    <!-- Table to display the list of hotels -->
+    <div class="row">
+        <div class="col-md-6">
+    <h3 style="color:white">Proprietés approuvés ({{approvedHotels.length || 0}})</h3><br>
+    <select aria-placeholder="Liste des proprietés" class="custom-select" [(ngModel)]="selectedHotel" (change)="onHotelChange(selectedHotel)">
+        <option disabled selected>Sélectionnez un proprieté</option>
+        <option *ngFor="let hotel of approvedHotels" [ngValue]="hotel">{{ hotel.HotelID }} - {{ hotel.HotelName }}</option>
+    </select>
+    </div>
+    <div class="col-md-6">
+    <h3 style="color:white">Proprietés non approuvés ({{unapprovedHotels.length || 0}})</h3><br>
+    <select aria-placeholder="Liste des proprietés" class="custom-select" [(ngModel)]="selectedHotel" (change)="onHotelChange(selectedHotel)">
+        <option disabled selected>Sélectionnez un proprieté</option>
+        <option *ngFor="let hotel of unapprovedHotels" [ngValue]="hotel">{{ hotel.HotelID }} - {{ hotel.HotelName }}</option>
+    </select>
+</div>
+</div>
+    <br>
+    <table class="table" *ngIf="(!showAddHotelForm || selectedHotel) && !editingHotel">
+        <thead *ngIf="selectedHotel">
+            <tr>
+                <th class="tablevertical">ID</th>
+                <th class="tablevertical">Propriétaire</th>
+                <th class="tablevertical">Nom</th>
+                <th class="tablevertical">Type</th>
+                <th class="tablevertical">Description</th>
+                <th class="tablevertical">Adresse 1</th>
+                <th class="tablevertical">Adresse 2 </th>
+                <th class="tablevertical">Localisation </th>
+                <th class="tablevertical">Ville</th>
+                <th class="tablevertical">Code Postal</th>
+                <th class="tablevertical">Pays</th>
+                <th class="tablevertical">Numéro</th>
+                <th class="tablevertical">Site Web</th>
+                <th class="tablevertical">E-mail</th>
+                <th class="tablevertical"><i style="color:rgb(203, 196, 49)" class="fas fa-star"></i></th>
+                <th class="tablevertical">Approuvée?</th>
+                <th class="tablevertical">Suites</th>
+                <th class="tablevertical">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <ng-container *ngIf="selectedHotel" >
+                    <tr *ngIf="editingHotel == false">
+                        <td>{{ selectedHotel.HotelID }}</td>
+                        <td>{{ selectedHotel.OwnerID }} - {{ getUserFullName(selectedHotel.OwnerID) }}</td>
+                        <td>{{ selectedHotel.HotelName }}</td>
+                        <td>{{ selectedHotel.HotelType }}</td>
+                        <td>{{ selectedHotel.Description | slice:0:30 }}{{ selectedHotel.Description > 30 ? '...' : '' }}</td>
+                        <td>{{ selectedHotel.AddressLine1 }}</td>
+                        <td>{{ selectedHotel.AddressLine2 }}</td>
+                        <td>{{ selectedHotel.localisation }}</td>
+                        <td>{{ selectedHotel.City }}</td>
+                        <td>{{ selectedHotel.PostalCode }}</td>
+                        <td>{{ selectedHotel.Country }}</td>
+                        <td>{{ selectedHotel.PhoneNumber }}</td>
+                        <td>{{ selectedHotel.Website | slice:0:15 }}{{ selectedHotel.Website > 30 ? '...' : '' }}</td>
+                        <td>{{ selectedHotel.Email }}</td>
+                        <td>{{ selectedHotel.StarRating }}</td>
+                        <td [ngStyle]="{'color:green': selectedHotel.APPROVED, 'color:red': !selectedHotel.APPROVED}">{{selectedHotel.APPROVED ? 'Oui' : 'Non'}}</td>
+                        <td>{{ this.roomlen[selectedHotel.HotelID] }}</td>
+                        <td>
+                            <button class="edit-button" (click)="editHotel(selectedHotel)"><i class="fas fa-edit"></i></button>
+                            <p></p>
+                            <button class="edit-button" (click)="deleteHotel(selectedHotel)"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+            </ng-container>
+        </tbody>
+    </table><br>
+    <div class="Carte" *ngIf="editingHotel === true" (change)="getUserFullName(selectedHotel.OwnerID)" >
+        <div class="form-group" style="text-align: right;"> ID De proprieté: {{ selectedHotel.HotelID }}</div><br>
+            <div class="form-group">
+                <label for="propr">Propriétaire: </label><br>
+                <select  placeholder="Select User" id="propr" [(ngModel)]="selectedUserId" (change)="fetchUsers();">
+                  <option value="" disabled>Selectionner utilisateur</option>
+                  <option style="color:black" *ngFor="let user of users" [value]="user.id"> ID: {{user.id}} - {{getUserFullName(user.id)}}</option>
+                </select>
+              </div><br>
+            <div class="form-group">
+                <label for="HotelName">Nom de proprieté:</label>
+                <input id="HotelName" type="text" class="form-control" [(ngModel)]="selectedHotel.HotelName">
+            </div><br>
+            <div class="form-group">
+                <label for="Star">Type de proprieté:</label><br>
+                <select  id="Star"  [(ngModel)]="selectedHotel.HotelType" ngModel>
+                    <option disabled selected>Sélectionnez un type</option>
+                    <option value="Hôtel">Hôtel</option>
+                    <option value="Maison d'hôtes">Maison d'hôtes</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Appartement">Appartement</option>
+                    <option value="EPHAD">EPHAD</option>
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="desc">Description:</label>
+                <textarea id="desc" type="text" class="form-control"  [(ngModel)]="selectedHotel.Description" ngModel></textarea>
+            </div><br>
+            <div class="form-group">
+                <label for="lg1">Ligne d'adresse 1:</label>
+                <input id="lg1" type="text"  class="form-control"[(ngModel)]="selectedHotel.AddressLine1" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="lg2">Ligne d'adresse 2:</label>
+                <input  for="lg2" type="text"  class="form-control" [(ngModel)]="selectedHotel.AddressLine2" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="lcoal">Localisation:</label>
+                <textarea type="text"  class="form-control" id="lcoal" [(ngModel)]="selectedHotel.localisation" ngModel></textarea>
+            </div><br>
+            <div class="form-group">
+                <label for="Ville">Ville:</label>
+                <input type="text"  class="form-control" id="Ville" [(ngModel)]="selectedHotel.City" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="Code">Code Postal:</label>
+                <input type="text" class="form-control" id="Code" [(ngModel)]="selectedHotel.PostalCode" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="Pays">Pays:</label>
+                <input type="text"  class="form-control" id="Pays" [(ngModel)]="selectedHotel.Country" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="numr">Téléphone:</label>
+                <input type="text" class="form-control" id="numr" [(ngModel)]="selectedHotel.PhoneNumber" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="site">Site Web:</label>
+                <input type="text" class="form-control" id="site" [(ngModel)]="selectedHotel.Website" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="text" class="form-control" id="Email" [(ngModel)]="selectedHotel.Email" ngModel>
+            </div><br>
+            <div class="form-group">
+                <label for="Star">Étoiles:</label><br>
+                <select  id="Star"  [(ngModel)]="selectedHotel.StarRating" ngModel>
+                    <option [value]="1">1</option>
+                    <option [value]="2">2</option>
+                    <option [value]="3">3</option>
+                    <option [value]="4">4</option>
+                    <option [value]="5">5</option>
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="appr">Approuvée?:</label><br>
+                <select id="appr" required [(ngModel)]="selectedHotel.APPROVED">
+                    <option [value]="1">Oui</option>
+                    <option [value]="0">Non</option>
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="suites">Suites {{ this.roomlen[selectedHotel.HotelID] }}:</label><br>
+                <button id="suites" (click)="addroom(selectedHotel)" class="btn-secondary">Ajouter une Suite</button>
+            </div><br><br>
+            <div class="form-group">
+                <button class="btn btn-success" style="background-color: #72000486; color:white;" (click)="saveHotel(selectedHotel)"><i class="fas fa-check "></i> Enregistrer</button>
+                <span style="gap: 10px;"></span>
+                <button class="btn btn-secondary" (click)="cancelEdit()"><i class="fas fa-times "></i> Annuler</button>
+            </div>                    
+    </div>
+    <button *ngIf="!showAddHotelForm && !editingHotel" class=" btnaddhotel" (click)="toggleAddHotelForm()">Ajouter une propriété</button>
+
+</div>
+</body>

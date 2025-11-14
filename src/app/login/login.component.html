@@ -1,0 +1,58 @@
+<!-- Font Awesome -->
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC'
+
+
+rel="stylesheet"
+/>
+
+
+
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+
+    <div class="gradient-custom">
+      <div class=" d-flex justify-content-center align-items-center h-100">
+
+        <div class="col-lg-6 col-xl-4 offset-xl-1">
+
+          <form (submit)="doLogin(f)" #f="ngForm">
+             
+                 <h3 style="color: white; margin-bottom: 50px; text-align: center;">Connectez vous à votre compte !</h3>
+          
+  
+        
+            <!-- Email input -->
+            <div class="form-group">
+              <label for="exampleInputEmail1"> Adresse E-mail</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre Email" required name="email" ngModel>
+            </div>
+           
+           
+  
+            <!-- Password input -->
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mot de passe</label>
+              <input type="password"  class="form-control" style="background: transparent !important;" id="exampleInputPassword1" placeholder="Password" required name="password" ngModel>
+                <div *ngIf="!credentialsvalid" class="text-danger">
+                Identifiants incorrects. Veuillez réessayer.
+              </div>
+              <div style="display: inline;">Vous avez oublié votre mot de passe? Cliquez ici pour <a routerLink="/forgotpassword" style="text-decoration: none; color: #ff5c62;">le reinitialisez</a></div>
+            </div>
+
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button  type="submit" class="btn btn-lg" 
+                style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: #72000486; color:white">Se connecter</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Vous n'avez pas de compte ? <a (click)="RegisterButton()"
+                  class="link-danger" style="cursor: pointer;">Créer un compte</a></p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    

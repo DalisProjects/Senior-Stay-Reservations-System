@@ -1,0 +1,114 @@
+<body>
+
+<div class="container">
+    <br>
+
+    <h2 class="onwen" style="text-align: center;">Mes proprietés</h2>
+    <br>
+    
+    <!-- Table to display the list of hotels -->
+    <div class="row">
+            <table class="table">
+        <thead>
+            <tr>
+                <th class="tablevertical">Nom</th>
+                <th class="tablevertical">Description</th>
+                <th class="tablevertical">Ligne D'adresse 1</th>
+                <th class="tablevertical">Ligne D'adresse 2</th>
+                <th class="tablevertical">Localisation</th>
+                <th class="tablevertical">Ville</th>
+                <th class="tablevertical">Code Postal</th>
+                <th class="tablevertical">Pays</th>
+                <th class="tablevertical">Numéro</th>
+                <th class="tablevertical">Site Web</th>
+                <th class="tablevertical">E-mail</th>
+                <th class="tablevertical"><i style="color:#cbc431" class="fas fa-star"></i></th>
+                <th class="tablevertical">Suites</th>
+                <th class="tablevertical">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <ng-container *ngFor="let hotel of approvedHotels" >
+                    <tr *ngIf="hotel.OwnerID === authService.LoggedInUser.id && editingHotel != hotel.HotelID">
+                        <td style="font-weight: bold;">{{ hotel.HotelName }}</td>
+                        <td>{{ hotel.Description | slice:0:30 }}{{ hotel.Description > 30 ? '...' : '' }}</td>
+                        <td>{{ hotel.AddressLine1 }}</td>
+                        <td>{{ hotel.AddressLine2 }}</td>
+                        <td>{{ hotel.localisation }}</td>
+                        <td>{{ hotel.City }}</td>
+                        <td>{{ hotel.PostalCode }}</td>
+                        <td>{{ hotel.Country }}</td>
+                        <td>{{ hotel.PhoneNumber }}</td>
+                        <td>{{ hotel.Website | slice:0:15 }}{{ hotel.Website > 30 ? '...' : '' }}</td>
+                        <td>{{ hotel.Email }}</td>
+                        <td>{{ hotel.StarRating }}</td>
+                        <td>{{ hotel.roomlength }}</td>
+                        <td >
+                            <button *ngIf="!editingHotel" class="edit-button" (click)="editHotel(hotel)"><i class="fas fa-edit"></i></button>
+                            <p></p>
+                            <button  *ngIf="!editingHotel"class="edit-button" (click)="deleteHotel(hotel)"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="editingHotel === hotel.HotelID" >
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" [(ngModel)]="hotel.HotelName">
+                            </td>
+                            <td>
+                                <textarea class="form-control" style="height:100px; width: 150px !important" [(ngModel)]="hotel.Description"></textarea>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="HotelLocation" [(ngModel)]="hotel.AddressLine1" ngModel>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="location2" [(ngModel)]="hotel.AddressLine2" ngModel>
+                            </td>
+                            <td>
+                                <textarea class="form-control" style="height:60px !important" [(ngModel)]="hotel.localisation"></textarea>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="Ville" [(ngModel)]="hotel.City" ngModel>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="Code" [(ngModel)]="hotel.PostalCode" ngModel>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="Pays" [(ngModel)]="hotel.Country" ngModel>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="numr" [(ngModel)]="hotel.PhoneNumber" ngModel>
+                            </td>
+                            <td>
+                                <textarea class="form-control" style="height:60px !important" [(ngModel)]="hotel.Website"></textarea>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="Email" [(ngModel)]="hotel.Email" ngModel>
+                            </td>
+                            <td>
+                                <select  id="Star"  [(ngModel)]="hotel.StarRating" ngModel>
+                                    <option [value]="1">1</option>
+                                    <option [value]="2">2</option>
+                                    <option [value]="3">3</option>
+                                    <option [value]="4">4</option>
+                                    <option [value]="5">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button (click)="addroom(hotel)" class="btn-secondary">Ajouter une suite</button>
+                            </td>
+                            <td>
+                                <button style="background-color: #72000486; color:white" class="btn btn-success" (click)="saveHotel(hotel)"><i class="fas fa-check "></i></button>
+                                <p></p>
+                                <button class="btn btn-secondary" (click)="cancelEdit()"><i class="fas fa-times "></i></button>
+                            </td>
+                        </tr>
+                        
+                    </ng-container>
+            </ng-container>
+        </tbody>
+    </table>
+   
+</div>
+</div>
+</body>

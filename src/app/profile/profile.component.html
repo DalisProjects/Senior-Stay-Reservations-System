@@ -1,0 +1,298 @@
+<h3 *ngIf="!authService.isLoggedIn"> Vous n'êtes pas connecté !</h3>
+
+<body *ngIf="authService.isLoggedIn">
+<br><br>
+<div class="profile-container" >
+  <h3 *ngIf="authService.LoggedInUser.type === 'Client'" >PROFILE DE {{ (authService.LoggedInUser.name.toUpperCase() || '') +" "+ authService.LoggedInUser.lastname.toUpperCase()}}</h3>
+  <h3 *ngIf="authService.LoggedInUser.type === 'Partenaire'">PROFILE DE {{ authService.LoggedInUser.lastname.toUpperCase()}}</h3>
+  <div class="profile-details">
+      <div class="containah1" *ngIf="this.authService.LoggedInUser.name != 'Verified' && this.authService.LoggedInUser.type === 'Partenaire'">
+        <div class="verification-message">
+          <p>Votre compte est en attente de validation administrative avant d'être approuvé.</p>
+          <p>Une fois votre compte vérifié, vous serez informé par e-mail.</p>
+          <p>En attendant, n'hésitez pas à explorer les fonctionnalités disponibles.</p>
+        </div>
+      </div>
+      <div class="containah1">
+      <div class="row">
+      <div class="profile-item col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Client' ">
+        <div class="boxx">
+<label>E-mail:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'email'">{{ authService.LoggedInUser.email }}</span></div>
+        <!--<input *ngIf="editMode == 'email'" type="email" [(ngModel)]="editedUser.email">
+        <button *ngIf="editMode == 'none' || editedField != 'email'" (click)="edit('email')"class="edit-button"><i class="fas fa-edit"></i></button>
+        <button *ngIf="editMode == 'email' && editedField === 'email'" (click)="apply('email')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'email' && editedField === 'email'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>-->
+      </div>
+      <div class="profile-items col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Partenaire' ">
+        <div class="boxx">
+<label>E-mail:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'email'">{{ authService.LoggedInUser.email }}</span></div>
+        <!--<input *ngIf="editMode == 'email'" type="email" [(ngModel)]="editedUser.email">
+        <button *ngIf="authService.LoggedInUser.name ==='Verified' && editMode == 'none' || authService.LoggedInUser.name ==='Verified' && editedField != 'email'" (click)="edit('email')"class="edit-button"><i class="fas fa-edit"></i></button>
+        <button *ngIf="editMode == 'email' && editedField === 'email'" (click)="apply('email')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'email' && editedField === 'email'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>-->
+      </div>
+      <div class="profile-item col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Client' ">
+        <div class="boxx">
+<label>Prénom:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'name'">{{ authService.LoggedInUser.name }}</span></div>
+        <input *ngIf="editMode == 'name'" type="text" [(ngModel)]="editedUser.name">
+        <button *ngIf="editMode == 'none' || editedField != 'name'" (click)="edit('name')"class="edit-button"><i class="fas fa-edit"></i></button>
+        <button *ngIf="editMode == 'name' && editedField === 'name'" (click)="apply('name')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'name' && editedField === 'name'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="profile-items col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Partenaire' ">
+        <div class="boxx">
+<label>Nom D'Organization:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'lastname'">{{ authService.LoggedInUser.lastname }}</span></div>
+        <input *ngIf="editMode == 'lastname'" type="text" [(ngModel)]="editedUser.lastname">
+        <button *ngIf="this.authService.LoggedInUser.name == 'Verified' && editMode == 'none' || authService.LoggedInUser.name ==='Verified' && editedField != 'lastname'" (click)="edit('lastname')"class="edit-button"><i class="fas fa-edit"></i></button>
+        <button *ngIf="editMode == 'lastname' && editedField === 'lastname'" (click)="apply('lastname')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'lastname' && editedField === 'lastname'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+      </div>
+      
+    </div>
+      <div class="row">
+        <div class="profile-item col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Client' ">
+          <div class="boxx">
+<label>Mot de passe:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'password'">{{ authService.LoggedInUser.passwordlength }}</span></div>
+          <!--<input *ngIf="editMode == 'password'" type="password" [(ngModel)]="editedUser.password">
+          <button *ngIf="editMode == 'none' || editedField != 'password'" (click)="edit('password')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'password' && editedField === 'password'" (click)="apply('password')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'password' && editedField === 'password'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>-->
+        </div>
+        <div class="profile-items col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Partenaire' ">
+          <div class="boxx">
+<label>Mot de passe:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'password'">{{ authService.LoggedInUser.passwordlength }}</span></div>
+          <!--<input *ngIf="editMode == 'password'" type="password" [(ngModel)]="editedUser.password">
+          <button *ngIf="this.authService.LoggedInUser.name == 'Verified' && editMode == 'none' || authService.LoggedInUser.name ==='Verified' && editedField != 'password'" (click)="edit('password')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'password' && editedField === 'password'" (click)="apply('password')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'password' && editedField === 'password'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>-->
+        </div>
+        <div class="profile-items col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Partenaire' ">
+          <div class="boxx">
+<label>Type de compte:</label>
+          <span>{{ authService.LoggedInUser.type }}</span></div>
+        </div>
+        <div class="profile-item col-md-6 mb-4" *ngIf="authService.LoggedInUser.type === 'Client' ">
+          <div class="boxx">
+<label>Nom:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'lastname'">{{ authService.LoggedInUser.lastname }}</span></div>
+          <input *ngIf="editMode == 'lastname'" type="text" [(ngModel)]="editedUser.lastname">
+          <button *ngIf="editMode == 'none' || editedField != 'lastname'" (click)="edit('lastname')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'lastname' && editedField === 'lastname'" (click)="apply('lastname')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'lastname' && editedField === 'lastname'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    <br>
+      <div class="containah" *ngIf="authService.LoggedInUser.type === 'Client'">
+      <h5 style="color: #c7a55d;;" class="mb-4 pb-2 pb-md-0 mb-md-5">Informations personnelles</h5>
+      <div class="row">
+      <div class="profile-item col-md-6 mb-4">
+        <div class="boxx">
+<label>Nationalité:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'nationality'"> {{  authService.LoggedInUser.nationality }}</span></div>
+        <div class="input-group">
+        <select *ngIf="editMode == 'nationality'" id="nationality" class="form-select form-select-lg " required [(ngModel)]="editedUser.nationality">
+          <option value="" disabled selected>Sélectionnez votre nationalité</option>
+          <option *ngFor="let country of countriesList" [value]="country">{{ country }}</option>
+        </select>
+        <button *ngIf="editMode == 'none' || editedField != 'nationality'" (click)="edit('nationality')"class="edit-button"><i class="fas fa-edit"></i> </button>
+        </div>
+        <button *ngIf="editMode == 'nationality' && editedField === 'nationality'" (click)="apply('nationality')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'nationality' && editedField === 'nationality'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="profile-item col-md-6 mb-4">
+        <div class="boxx">
+<label>Civilité:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'gender'">{{ authService.LoggedInUser.gender }}</span></div>
+        <select *ngIf="editMode == 'gender'" class="form-select form-select-lg" autocomplete="sex" id=":r4:" aria-required="true" [(ngModel)]="editedUser.gender">
+          <option value=""disabled selected>Sélectionnez votre Civilité</option>
+          <option value="Monsieur">Monsieur</option>
+          <option value="Madame">Madame</option>
+          </select>
+        <button *ngIf="editMode == 'none' || editedField != 'gender'" (click)="edit('gender')"class="edit-button"><i class="fas fa-edit "></i></button>
+        <button *ngIf="editMode == 'gender' && editedField === 'gender'" (click)="apply('gender')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'gender' && editedField === 'gender'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+      </div>
+      </div>
+      <div class="row">
+      <div class="profile-item col-md-6 mb-4">
+      <div class="boxx">
+<label>Téléphone:</label>
+      <span *ngIf="editMode == 'none' || editedField != 'phone'"> {{ authService.LoggedInUser.phone || ' ' }} </span></div>
+        <div class="input-group">
+            <input *ngIf="editMode == 'phone'" type="tel" id="phoneNumber" placeholder="Numéro" class="form-control form-control-lg" [(ngModel)]="editedUser.phone" ngModel name="phnumber"/>
+            <button *ngIf="editMode == 'none' || editedField != 'phone'" class="edit-button" (click)="edit('phone')"><i class="fas fa-edit"></i></button>
+            <button *ngIf="editMode == 'phone' && editedField === 'phone'" (click)="apply('phone')"class="apply-button"><i class="fas fa-check"></i></button>
+            <button *ngIf="editMode == 'phone' && editedField === 'phone'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>          </div>
+    </div>
+      <div class="profile-item col-md-6 mb-4">
+        <div class="boxx">
+<label>Date de Naissance:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'birth'">{{ authService.LoggedInUser.dateofbirth | date: 'dd/MM/yyyy'}}</span></div>
+        <div *ngIf="editMode == 'birth'" class="form-outline">
+          <input type="date" id="dateOfBirth" class="form-control form-control-lg" max="2014-01-01" min="1930-01-01" [(ngModel)]="editedUser.dateofbirth">
+        </div>
+        <button *ngIf="editMode == 'none' || editedField != 'birth'" (click)="edit('birth')"class="edit-button"><i class="fas fa-edit"></i></button>
+        <button *ngIf="editMode == 'birth' && editedField === 'birth'" (click)="apply('birth')"class="apply-button"><i class="fas fa-check"></i></button>
+        <button *ngIf="editMode == 'birth' && editedField === 'birth'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+      </div>
+      </div>
+      <div class="row">
+        <div class="profile-item col-md-6 mb-4">
+        <div class="boxx">
+<label>Pays:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'pays'"> {{ authService.LoggedInUser.pays || ' ' }} </span></div>
+          <div class="input-group">
+              <select *ngIf="editMode == 'pays'" placeholder="Pays" class="form-select form-select-lg" [(ngModel)]="editedUser.pays" ngModel>
+                  <option value="France"> France </option>
+                  <option value="Suisse">Suisse</option> 
+              </select> 
+              <button *ngIf="editMode == 'none' || editedField != 'pays'" class="edit-button" (click)="edit('pays')"><i class="fas fa-edit"></i></button>
+              <button *ngIf="editMode === 'pays' && editedField === 'pays'" (click)="apply('pays')"class="apply-button"><i class="fas fa-check"></i></button>
+              <button *ngIf="editMode === 'pays' && editedField === 'pays'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>          </div>
+      </div>
+        <div class="profile-item col-md-6 mb-4">
+          <div class="boxx">
+<label>Ville:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'pays'">{{ authService.LoggedInUser.ville || ' ' }}</span></div>
+          <div *ngIf="editMode == 'ville'" class="form-outline">
+            <input type="text" id="ville" class="form-control form-control-lg" [(ngModel)]="editedUser.ville">
+          </div>
+          <button *ngIf="editMode == 'none' || editedField != 'ville'" (click)="edit('ville')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'ville' && editedField === 'ville'" (click)="apply('ville')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'ville' && editedField === 'ville'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <div class="row">
+          <div class="profile-item col-md-6 mb-4">
+          <div class="boxx">
+<label>Code Postal:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'codepostal'"> {{ authService.LoggedInUser.codepostal || ' ' }} </span></div>
+          <div *ngIf="editMode == 'codepostal'" class="form-outline">
+            <input type="text" id="codepostal" class="form-control form-control-lg" [(ngModel)]="editedUser.codepostal">
+          </div>
+          <button *ngIf="editMode == 'none' || editedField != 'codepostal'" (click)="edit('codepostal')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'codepostal' && editedField === 'codepostal'" (click)="apply('codepostal')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'codepostal' && editedField === 'codepostal'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="profile-item col-md-6 mb-4">
+            <div class="boxx">
+<label>Adresse:</label>
+            <span *ngIf="editMode == 'none' || editedField != 'adresse'">{{ authService.LoggedInUser.adresse || ' ' }}</span></div>
+            <div *ngIf="editMode == 'adresse'" class="form-outline">
+              <input type="text" id='adresse' class="form-control form-control-lg" [(ngModel)]="editedUser.adresse">
+            </div>
+            <button *ngIf="editMode == 'none' || editedField != 'adresse'" (click)="edit('adresse')"class="edit-button"><i class="fas fa-edit"></i></button>
+            <button *ngIf="editMode == 'adresse' && editedField === 'adresse'" (click)="apply('adresse')"class="apply-button"><i class="fas fa-check"></i></button>
+            <button *ngIf="editMode == 'adresse' && editedField === 'adresse'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+          </div>
+          </div>
+    </div>
+    <div class="containah" *ngIf="authService.LoggedInUser.type === 'Partenaire' && this.authService.LoggedInUser.name == 'Verified'">
+      <h5 style="color: white;" class="mb-4 pb-2 pb-md-0 mb-md-5">Informations de l'Organization</h5>
+      <div class="row">
+      <div class="profile-item col-md-6 mb-4">
+      <div class="boxx">
+<label>Téléphone:</label>
+      <span *ngIf="editMode == 'none' || editedField != 'phone'"> {{ authService.LoggedInUser.phone || ' ' }} </span></div>
+        <div class="input-group">
+            <input *ngIf="editMode == 'phone'" type="tel" id="phoneNumber" placeholder="Numéro" class="form-control form-control-lg" [(ngModel)]="editedUser.phone" ngModel name="phnumber"/>
+            <button *ngIf="editMode == 'none' || editedField != 'phone'" class="edit-button" (click)="edit('phone')"><i class="fas fa-edit"></i></button>
+            <button *ngIf="editMode == 'phone' && editedField === 'phone'" (click)="apply('phone')"class="apply-button"><i class="fas fa-check"></i></button>
+            <button *ngIf="editMode == 'phone' && editedField === 'phone'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>          </div>
+    </div>
+    <div class="profile-item col-md-6 mb-4">
+      <div class="boxx">
+<label>Serial Number:</label>
+      <span *ngIf="editMode == 'none' || editedField != 'serialnumber'">{{ authService.LoggedInUser.serialnumber }}</span></div>
+      <input *ngIf="editMode == 'serialnumber'" type="text" [(ngModel)]="editedUser.serialnumber">
+      <button *ngIf="editMode == 'none' || editedField != 'serialnumber'" (click)="edit('serialnumber')"class="edit-button"><i class="fas fa-edit"></i></button>
+      <button *ngIf="editMode == 'serialnumber' && editedField === 'serialnumber'" (click)="apply('serialnumber')"class="apply-button"><i class="fas fa-check"></i></button>
+      <button *ngIf="editMode == 'serialnumber' && editedField === 'serialnumber'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+    </div>
+      </div>
+      <div class="row">
+        <div class="profile-item col-md-6 mb-4">
+        <div class="boxx">
+<label>Pays:</label>
+        <span *ngIf="editMode == 'none' || editedField != 'pays'"> {{ authService.LoggedInUser.pays || ' ' }} </span></div>
+          <div class="input-group">
+              <select *ngIf="editMode == 'pays'" placeholder="Pays" class="form-select form-select-lg" [(ngModel)]="editedUser.pays" ngModel>
+                  <option value="France"> France </option>
+                  <option value="Suisse">Suisse</option> 
+              </select> 
+              <button *ngIf="editMode == 'none' || editedField != 'pays'" class="edit-button" (click)="edit('pays')"><i class="fas fa-edit"></i></button>
+              <button *ngIf="editMode === 'pays' && editedField === 'pays'" (click)="apply('pays')"class="apply-button"><i class="fas fa-check"></i></button>
+              <button *ngIf="editMode === 'pays' && editedField === 'pays'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>          </div>
+      </div>
+        <div class="profile-item col-md-6 mb-4">
+          <div class="boxx">
+<label>Ville:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'ville'">{{ authService.LoggedInUser.ville || ' ' }}</span></div>
+          <div *ngIf="editMode == 'ville'" class="form-outline">
+            <input type="text" id="ville" class="form-control form-control-lg" [(ngModel)]="editedUser.ville">
+          </div>
+          <button *ngIf="editMode == 'none' || editedField != 'ville'" (click)="edit('ville')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'ville' && editedField === 'ville'" (click)="apply('ville')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'ville' && editedField === 'ville'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <div class="row">
+          <div class="profile-item col-md-6 mb-4">
+          <div class="boxx">
+<label>Code Postal:</label>
+          <span *ngIf="editMode == 'none' || editedField != 'codepostal'"> {{ authService.LoggedInUser.codepostal || ' ' }} </span></div>
+          <div *ngIf="editMode == 'codepostal'" class="form-outline">
+            <input type="text" id="codepostal" class="form-control form-control-lg" [(ngModel)]="editedUser.codepostal">
+          </div>
+          <button *ngIf="editMode == 'none' || editedField != 'codepostal'" (click)="edit('codepostal')"class="edit-button"><i class="fas fa-edit"></i></button>
+          <button *ngIf="editMode == 'codepostal' && editedField === 'codepostal'" (click)="apply('codepostal')"class="apply-button"><i class="fas fa-check"></i></button>
+          <button *ngIf="editMode == 'codepostal' && editedField === 'codepostal'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="profile-item col-md-6 mb-4">
+            <div class="boxx">
+<label>Adresse:</label>
+            <span *ngIf="editMode == 'none' || editedField != 'adresse'">{{ authService.LoggedInUser.adresse || ' ' }}</span></div>
+            <div *ngIf="editMode == 'adresse'" class="form-outline">
+              <input type="text" id='adresse' class="form-control form-control-lg" [(ngModel)]="editedUser.adresse">
+            </div>
+            <button *ngIf="editMode == 'none' || editedField != 'adresse'" (click)="edit('adresse')"class="edit-button"><i class="fas fa-edit"></i></button>
+            <button *ngIf="editMode == 'adresse' && editedField === 'adresse'" (click)="apply('adresse')"class="apply-button"><i class="fas fa-check"></i></button>
+            <button *ngIf="editMode == 'adresse' && editedField === 'adresse'" (click)="cancel()"class="cancel-button"><i class="fas fa-times"></i></button>
+          </div>
+          </div>
+    </div>
+    <br>
+
+    <button class="delete-account-btn" (click)="changeclicked()"><i class="fas fa-delete"></i> Delete Account</button>
+    <div class="popup-container" *ngIf="clickeddelete">
+      <div class="popup">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <p>Êtes-vous sûre de vouloir supprimer ce compte ?</p>
+        <div class="button-container">
+          <button class="confirm-button" (click)="this.authService.DeleteAccount(this.authService.LoggedInUser.id)">Confirmer</button>
+          <button class="cancel-button" (click)="closePopup()">Annuler</button>
+        </div>
+      </div>
+    <div class="popup-container" *ngIf="authService.deletionerror">
+      <div class="popup">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <p>Vous ne pouvez pas supprimer ce compte car il possède une propriété qui est publiée sur le site de réservations.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+</body>
