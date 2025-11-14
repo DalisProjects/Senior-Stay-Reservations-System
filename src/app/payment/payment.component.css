@@ -1,0 +1,74 @@
+.payment-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .payment-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .payment-form label {
+    margin-bottom: 10px;
+  }
+  
+  .payment-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .payment-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .payment-form button:hover {
+    background-color: #0056b3;
+  }
+  .payment-section {
+    margin: 1rem 0; /* Add some margin for spacing */
+    padding: 1rem;
+    border: 1px solid #ddd; /* Optional border for a defined section */
+    border-radius: 5px; /* Rounded corners for a softer look */
+  }
+  
+  .payment-section h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .payment-section p {
+    margin-bottom: 0.75rem;
+  }
+  
+  .paypal-button {
+    background-color: #007bff; /* Standard PayPal button color */
+    color: white;
+    border-color: #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer; /* Indicate clickable button */
+  }
+  
+  .payment-disclaimer {
+    font-size: 0.8rem; /* Slightly smaller text for disclaimer */
+    color: #aaa;
+  }
+  

@@ -1,0 +1,136 @@
+<section class="reservations-section">
+  <div class="container">
+    <div style=" background-color: antiquewhite; border: 0.5px solid #ddd; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+      <h3 style="color: #7b5820b2; margin-top: 10px;">Découvrir Nos Espaces</h3><hr style="color:#d4ba8fc6">
+    <nav>
+        <ul class="navbar">
+            <li><a  (click)="filterType('Hôtel')" [class.active]="ClickedType === 'Hôtel'">HOTELS</a></li>
+            <li><a  (click)="filterType('guesthouses')" [class.active]="typeclass === 'hotes'">MAISON D'HOTES</a></li>
+            <li><a  (click)="filterType('Villa')" [class.active]="ClickedType === 'Villa'">VILLAS</a></li>
+            <li><a  (click)="filterType('Appartement')" [class.active]="ClickedType === 'Appartement'">APPARTEMENTS</a></li>
+            <li><a  (click)="filterType('EPHAD')" [class.active]="ClickedType === 'EPHAD'">EPHAD</a></li>
+        </ul>
+    </nav>
+    </div>
+    <button *ngIf="!filtrage" class="btnsrch" (click)="filtragech()"><i class="fas fa-filter"></i> Filtrer</button>
+    <br>
+    <div>
+      
+    <div class="search-container" *ngIf="filtrage">
+      
+      <div class="input-group">
+        <button class="btnsrch" (click)="filtragech()"><i class="fas fa-filter"></i> Filtrer</button>
+        <div class="form-group">
+          <label for="pname-input" style="font-size: small;">Nom de proprieté :</label>
+          <input style="height: 40px; border-radius: 3px; border-color: gray; width: 200px; " class="form-select-lg resized" type="text" id="pname-input" [(ngModel)]="namefilter">
+        </div>
+        <div class="form-group">
+          <label for="location-input" style="font-size: small;">Emplacement :</label>
+          <input style="height: 40px; border-color: gray; width: 200px;" class="form-select-lg resized" type="text" id="location-input" [(ngModel)]="searchlocation">
+        </div>
+        <div class="form-group">
+          <label for="numb" style="font-size: small;">Occupation Maximale :</label>
+          <select style="height: 40px; border-color: black;" id="numb" class="form-select-lg resized" [(ngModel)]="maxOccupancy">
+            <option [value]="1" class="resized">1 Adulte</option>
+            <option [value]="2" class="resized">2 Adultes</option>
+            <option [value]="3" class="resized">3 Adultes</option>
+            <option [value]="4" class="resized">4 Adultes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="romt" style="font-size: small;">Type De Suite :</label>
+          <select style="height: 40px; border-color: black; width: 120px;" id="romt" class="form-select-lg resized" [(ngModel)]="selectedRoomType">
+            <option value="Family Pack" class="resized">Family Pack</option>
+            <option value="Couple Pack" class="resized">Couple Pack</option>
+            <option value="Single Room" class="resized">Single Room</option>
+            <option value="Double Room" class="resized">Double Room</option>
+            <option value="Triple Room" class="resized">Triple Room</option>
+            <option value="Quarter Room" class="resized">Quarter Room</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="price-input" style="font-size: small;">Prix maximale (£):</label>
+          <input placeholder="£ 0" style="height: 40px; border-color: gray; width: 100px;" class="form-select-lg resized" type="number" id="price-input" [(ngModel)]="pricefilter">
+        </div>
+        <button  class=" btnsrch" (click)="searchHotels()"><i class="fas fa-search"></i></button>
+      </div>
+   </div>
+   <p *ngIf="err" style="color:#6b4200; font-size: medium;">Aucun résultat trouvé ! </p>  
+
+   <div *ngFor="let hotel of hotel; let i = index" >
+    <br><br>
+    
+    <div class="row" *ngIf="hotel.APPROVED && foundhotels">
+      <div class="col-md-6 hotel-list hotel-item background-cover" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage(hotel.image_paths) + ')' }" [class.active]="currentIndex === i">
+        <!-- Left side -->
+            <div class="" >
+            <div class="hotel-details" style="height: 350px !important;">
+              <h2 (click)="onBookRoom(hotel)" style="cursor: pointer;">{{ hotel.HotelName.toUpperCase() }}</h2>
+              <span style="opacity: 90%;" *ngFor="let _ of [].constructor(hotel.StarRating)">
+                <i class="fas fa-star star-icon"></i></span>
+                <span *ngFor="let _ of [].constructor(5-hotel.StarRating)">
+                  <i class="fas fa-star star-icontransparent"></i></span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6 bg" (click)="onBookRoom(hotel)" style="cursor: pointer;">
+        <div class="hotel-detailss hotel-list" style="height: 350px;">
+          <br>
+          <h3 (click)="onBookRoom(hotel)" style="cursor: pointer;">{{ hotel.HotelName }}    
+            <span *ngFor="let _ of [].constructor(hotel.StarRating)">
+            <i class="fas fa-star star-icon"></i></span>
+            <span *ngFor="let _ of [].constructor(5-hotel.StarRating)">
+              <i class="fas fa-star star-icontransparent"></i></span></h3>
+          <a style="color:#8b090ed5; font-size: 12px;" (click)="checkLocation(hotel.localisation)" target="_blank">{{hotel.City}}, {{hotel.Country}}</a><br><br>
+          <p><i style="color: #8b090ed5" class="fas fa-map-marker-alt"></i> {{hotel.City}} {{hotel.Country}}</p>
+          <p>{{ hotel.Description }}</p>
+        </div>   
+        <button class="btn" style="background-color: #8b090ed5; color:white; text-align: center; width: 180px; margin-bottom: 5px;"(click)="onBookRoom(hotel)">Voir plus</button>
+      </div>
+    </div>
+
+    <br><br>
+
+  
+  </div>
+  </div>
+  <div *ngFor="let hotel of hotels; let i = index" >
+    <br>
+    <div class="row" *ngIf="hotel.APPROVED && !foundhotels">
+      <div class="col-md-6 hotel-list hotel-item background-cover" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage(hotel.image_paths) + ')' }" [class.active]="currentIndex === i">
+        <!-- Left side -->
+            <div class="" >
+            <div class="hotel-details" style="height: 350px !important;">
+              <h2 (click)="onBookRoom(hotel)" style="cursor: pointer;">{{ hotel.HotelName.toUpperCase() }}</h2>
+              <span style="opacity: 90%;" *ngFor="let _ of [].constructor(hotel.StarRating)">
+                <i class="fas fa-star star-icon"></i></span>
+                <span *ngFor="let _ of [].constructor(5-hotel.StarRating)">
+                  <i class="fas fa-star star-icontransparent"></i></span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6 bg" (click)="onBookRoom(hotel)" style="cursor: pointer;">
+        <div class="hotel-detailss hotel-list" style="height: 350px;">
+          <br>
+          <h3 (click)="onBookRoom(hotel)" style="cursor: pointer;">{{ hotel.HotelName }}    
+            <span *ngFor="let _ of [].constructor(hotel.StarRating)">
+            <i class="fas fa-star star-icon"></i></span>
+            <span *ngFor="let _ of [].constructor(5-hotel.StarRating)">
+              <i class="fas fa-star star-icontransparent"></i></span></h3>
+          <a style="color:#8b090ed5; font-size: 12px;" (click)="checkLocation(hotel.localisation)" target="_blank">{{hotel.City}}, {{hotel.Country}}</a><br><br>
+          <p><i style="color: #8b090ed5" class="fas fa-map-marker-alt"></i> {{hotel.City}} {{hotel.Country}}</p>
+          <p>{{ hotel.Description }}</p>
+        </div>   
+        <button class="btn btn-Ig" style="background-color: #8b090ed5;color:white; text-align: center; width: 180px; margin-bottom: 5px;"(click)="onBookRoom(hotel)">Voir plus</button>
+      </div>
+    </div>
+    <br><br>
+
+  
+  </div>
+ <!-- <div class="hotel-map">
+     You can integrate Google Maps or any other map library here to show hotel locations
+    <p>Map Placeholder</p>
+  </div> -->
+</div>
+</section>

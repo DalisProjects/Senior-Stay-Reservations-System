@@ -1,0 +1,63 @@
+
+<body>
+<section class="booking-confirmation">
+  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div *ngIf="hotel">
+    <h2 class="onwen">{{ hotel.HotelName }} <span class="starstyling" *ngFor="let _ of range(hotel.StarRating)"><i class="fas fa-star star-icon"></i></span><span class="starstyling"  *ngFor="let _ of range(5 - hotel.StarRating)"><i class="fas fa-star star-icontransparent"></i></span></h2>  
+    <div class="container">
+      <div class="card" *ngFor="let imagePath of GetImages(hotel.image_paths); let i = index">
+        <img [src]="imagePath">
+        <div class="card_title">{{ hotel.HotelName }} photo {{ i + 1 }}</div>
+      </div>
+    </div>
+   <div class="below">
+      <h4>{{ hotel.HotelName }}    
+        <span *ngFor="let _ of range(hotel.StarRating)">
+        <i class="fas fa-star star-icon"></i></span>
+        <span *ngFor="let _ of range(5-hotel.StarRating)">
+          <i class="fas fa-star star-icontransparent"></i></span></h4>
+      <p><i style="color:red" class="fas fa-map-marker-alt"></i> {{ hotel.AddressLine1 }} , {{ hotel.AddressLine2 }}</p> 
+      <button class="btn btn-lg" style="background-color: #8b090ed5; color:white; font-size: medium;" (click)="checkLocation(hotel.localisation)">Voir l'emplacement</button>
+       <br>   
+      <br><p>{{ hotel.Description }}</p>
+      <p><strong>Site Web:</strong> <a style="text-decoration: none; color: #8b090ed5;" [href]="GetWebsite(hotel.Website)" target="_blank"> Visiter {{hotel.HotelName}} Site Web !</a></p>
+   </div>
+  </div>
+</section>
+<section class="booking-confirmation">
+  <br><h2 class="onwen" *ngIf="rooms">Nos Suites ({{rooms.length || 0}}) <span class="starstyling" *ngFor="let _ of range(hotel.StarRating)"><i class="fas fa-star star-icon"></i></span><span class="starstyling"  *ngFor="let _ of range(5 - hotel.StarRating)"><i class="fas fa-star star-icontransparent"></i></span></h2>  <br>
+  <div  *ngFor="let room of rooms">
+    <h4 class="onwen">Type: {{ room.RoomType }} </h4>  
+    <div class="container">
+      <div class="cardroom" *ngFor="let roomimagePath of GetImages(room.image_paths); let i = index">
+        <img [src]="roomimagePath">
+        <div class="card_title">{{ room.HotelName }} suite {{ i + 1 }}</div>
+      </div>
+    </div>
+   <div class="below">
+      <p><strong> Occupation maximale: </strong>{{ room.MaxOccupancy }}</p>
+      <p><strong>Description:</strong> {{ room.Description }}</p> <br>
+      <h5>Price: {{room.Price}} £</h5>
+      <br>
+      <div>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a start date" [value]="startDate" (dateChange)="startDateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Choose an end date" [value]="endDate" (dateChange)="endDateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 [dateClass]="dateClass"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button class="btn btn-lg" style="background-color: #8b090db2; color:white" (click)="reserveNow(hotel, room)"> Resérver maintenant </button><br>
+    <img src="assets/images/paypal.jpg" alt="PayPal Logo" style="padding-top: 6px;" width="25"><small style="font-size: 15px !important;">Payer avec PayPal</small><br><br>
+ 
+     </div>
+  </div>
+
+</section>
+<body>

@@ -1,0 +1,9 @@
+<!-- logs.component.html -->
+<h3>SERVER LOGS</h3>
+<div *ngFor="let log of authService.logs">
+    <div>{{ log.timestamp }}</div>
+    <div>ID:
+    <br>Nom: {{log.sender }}
+    <br> {{ log.message }}</div>
+    <hr />
+  </div>

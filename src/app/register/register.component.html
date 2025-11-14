@@ -1,0 +1,278 @@
+<!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+
+
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+></script>
+
+
+
+
+
+<section class="gradient-custom" >
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card-registration" style="border-radius: 15px;">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 centering " style="margin-top: 20px;">Créez un compte Silver Booking ! </h3>
+
+
+    <form #r="ngForm" (submit)="register(r)">
+      <h4 class="mb-4 pb-2 pb-md-0 mb-md-5">Informations Générales</h4>
+      <div class="row">
+        <div *ngIf="verificationAttempted">
+          <div *ngIf="verificationSuccess; else incorrectCode">
+            <p style="color: green;">Votre adresse e-mail a été verifiée avec succès</p>
+          </div>
+          <ng-template #incorrectCode>
+            <p style="color: red;">Code Incorrect, Veuillez vérifiez le code envoyer</p>
+          </ng-template>
+        </div>  
+        <div *ngIf="EmailUsed || emailError || PasswordError">    
+        <div *ngIf="EmailUsed" class="text-danger">Cette adresse e-mail est déjà utilisée par un autre utilisateur. Veuillez utiliser une autre adresse e-mail.</div>
+        <div *ngIf="emailError" class="text-danger">Cette adresse e-mail n'est pas valide. Veuillez utiliser une autre adresse e-mail valide.</div>
+        <div *ngIf="PasswordError" class="text-danger">Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule et un chiffre.</div>
+        <br>  
+        </div>
+        <div class="col-md-6 mb-4">
+          <h6 class="mb-2 pb-1">Adresse Email: <span style="color:red">*</span></h6>
+          <div class="form-outline">
+            <input [disabled]="verificationSuccess || showVerificationCodeInput" autocomplete="email" type="text" id="Email" class="form-control form-control-lg" required email placeholder="Email" name="email" [(ngModel)]="email" ngModel />
+            <label class="form-label" for="Email"></label>
+            <input *ngIf="showVerificationCodeInput" type="text" class="form-control"  [(ngModel)]="verificationInput" name="verificationInput" ngModel placeholder="Enter verification code">
+            <button  type="button" style="margin-left: 250px; background-color: #72000486; color:white;" *ngIf="verificationInput.length === 6 && !verificationSuccess;" class="btn btn-lg" (click)="verifyCode()">Verify</button>
+            <br>
+            <button style="background-color: #72000486; color:white;" type="button" [disabled]="!canSendEmail"  *ngIf="!verificationSuccess && email" class="btn btn-Ig" (click)="sendConfirmationEmail()">Envoyer le code</button>
+            <div *ngIf="!canSendEmail">
+              <p *ngIf="!verificationSuccess">{{ countdownMessage }}</p>
+            </div>
+            
+           
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <h6 class="mb-2 pb-1">Type de compte: <span style="color:red">*</span></h6>
+          <div class="form-outline">
+            <select aria-placeholder="aaa" placeholder="bbb" class="form-select form-select-lg" required id="type" [(ngModel)]="type" name="type" ngModel>
+              <option value="" selected disabled hidden>Sélectionner votre type de compte</option>
+              <option value="Client" defaultSelected>Client</option>
+              <option value="Partenaire">Partenaire</option>
+              </select>
+              <label class="form-label" for="type"></label>
+          </div>
+        </div>
+      </div>
+                  
+  
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+
+                        <h6 class="mb-2 pb-1">Mot de passe: <span style="color:red">*</span></h6>
+  
+                        <div class="form-outline">
+                          <input type="password" id="password" autocomplete="new-password" class="form-control form-control-lg" required password placeholder="Password" name="password" ngModel   />
+                          <label class="form-label" for="Password"></label>
+                          <hr> 
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4">
+                        <h6 class="mb-2 pb-1">Confirmer le mot de passe: <span style="color:red">*</span></h6>
+                        <div class="form-outline">
+                            <input type="password" autocomplete="new-password"  id="confirmPassword"  class="form-control form-control-lg" required password placeholder="Confirmer le mot de passe" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel" />
+                            <label class="form-label" for="confirmPassword"></label>
+                            <div *ngIf="confirmPasswordInput.touched && r.value.password !== r.value.confirmPassword" class="text-danger"> Les mots de passe ne correspondent pas. </div>
+
+                            <hr> 
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="type=='Client'">
+                <h4 class="mb-4 pb-2 pb-md-0 mb-md-5">Informations personnelles</h4>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Prénom: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="username" class="form-control form-control-lg" autocapitalize="words" placeholder="Prénom" required name="username" ngModel />
+                    <label class="form-label" for="username"></label>
+                  </div>   
+                </div>
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Nom: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="lastname" class="form-control form-control-lg" autocapitalize="words" placeholder="Nom" required  name="lastname"  ngModel />
+                    <label class="form-label" for="lastname"></label>
+                  </div>   
+                </div>
+              </div>
+                <div class="row">
+                  
+                  <div class="col-md-6 mb-4"> 
+                    <h6 class="mb-2 pb-1">Civilité:</h6>
+                    <div class="form-outline">
+                      <select class="form-select form-select-lg" aria-placeholder="Sélectionnez votre civilité" id="gender" name="gender" ngModel>
+                      <option value="Monsieur">Monsieur</option>
+                      <option value="Madame">Madame</option>
+                      </select>
+                      <label class="form-label" for="gender"></label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <h6 class="mb-2 pb-1">Numéro de téléphone:</h6>
+                    <div class="form-outline">
+                      <input type="tel" id="phoneNumber" placeholder="Numéro" class="form-control form-control-lg number-input" ngModel name="phnumber"/>
+                      <label class="form-label" for="phoneNumber"></label>
+                    </div>  
+                </div>
+                </div>
+                <div class="row">  
+                  <div class="col-md-6 mb-4">
+                    <h6 class="mb-2 pb-1">Date de Naissance:</h6>
+                    <div class="form-outline">
+                        <input type="date" id="dateOfBirth" class="form-control form-control-lg" name="dateOfBirth" ngModel max="2014-01-01" min="1940-01-01">
+                    </div>
+                  <br> 
+                    <hr> 
+
+                </div>
+                  <div class="col-md-6 mb-4">
+                    <h6 class="mb-2 pb-1">Nationalité: </h6>
+                    <div class="form-outline">
+                      <select id="Nationality" class="form-select form-select-lg" name="Nationality" ngModel>
+                        <option value="" disabled selected>Sélectionnez votre nationalité</option>
+                        <option *ngFor="let country of countriesList" [value]="country">{{ country }}</option>
+                      </select>
+                      <label class="form-label" for="Nationality"></label>
+                      <hr> 
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Pays:</h6>
+                  <div class="form-outline">
+                    <select class="form-select form-select-lg"  id="pays" name="pays" ngModel>
+                    <option value="" disabled selected>Sélectionnez votre pays</option>
+                    <option value="France">France</option>
+                    <option value="Suisse">Suisse</option>
+                    </select>
+                    <label class="form-label" for="pays"></label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Ville:</h6>
+                  <div class="form-outline">
+                    <input type="text" id="ville" class="form-control form-control-lg" placeholder="Ville"  name="ville" ngModel />
+                    <label class="form-label" for="ville"></label>
+                  </div>   
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Code Postal:</h6>
+                  <div class="form-outline">
+                    <input type="number" id="codepostal" class="form-control form-control-lg" placeholder="Code Postal"  name="codepostal" ngModel />
+                    <label class="form-label" for="codepostal"></label>
+                  </div>  
+  
+                </div>
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Adresse:</h6>
+                  <div class="form-outline">
+                    <input type="text" id="adresse" class="form-control form-control-lg" placeholder="Merci d'avoir saisir votre adresse."  name="adresse" ngModel />
+                    <label class="form-label" for="adresse"></label>
+                  </div>   
+                </div>
+              </div>
+              </div>
+              <div *ngIf="type=='Partenaire'">
+                <h4 class="mb-4 pb-2 pb-md-0 mb-md-5">Informations de l'organisation</h4>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Nom d'Organization: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="lastname" class="form-control form-control-lg" placeholder="Organization" required name="lastname" ngModel />
+                    <label class="form-label" for="lastname"></label>
+                  </div>   
+                </div>
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Serial Number: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="serialnumber" class="form-control form-control-lg" placeholder="Serial Number" required  name="serialnumber"  ngModel />
+                    <label class="form-label" for="serialnumber"></label>
+                  </div>   
+                </div>
+              </div>
+                <div class="row">
+                
+                  <div class="col-md-6 mb-4">
+                    <h6 class="mb-2 pb-1">Numéro de téléphone: <span style="color:red">*</span></h6>
+                    <div class="form-outline">
+                      <input type="tel" id="phoneNumber" placeholder="Numéro" class="form-control form-control-lg" ngModel name="phnumber"/>
+                      <label class="form-label" for="phoneNumber"></label>
+                    </div>  
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Pays: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <select class="form-select form-select-lg"  id="pays" required name="pays" ngModel>
+                    <option value="" disabled selected>Sélectionnez votre pays</option>
+                    <option value="France">France</option>
+                    <option value="Suisse">Suisse</option>
+                    </select>
+                    <label class="form-label" for="pays"></label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Ville: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="ville" class="form-control form-control-lg" placeholder="Ville" required name="ville" ngModel />
+                    <label class="form-label" for="ville"></label>
+                  </div>   
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Code Postal: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="number" id="codepostal" class="form-control form-control-lg" required placeholder="Code Postal"  name="codepostal" ngModel />
+                    <label class="form-label" for="codepostal"></label>
+                  </div>  
+  
+                </div>
+                <div class="col-md-6 mb-4"> 
+                  <h6 class="mb-2 pb-1">Adresse: <span style="color:red">*</span></h6>
+                  <div class="form-outline">
+                    <input type="text" id="adresse" class="form-control form-control-lg" required placeholder="Merci d'avoir saisir votre adresse."  name="adresse" ngModel />
+                    <label class="form-label" for="adresse"></label>
+                  </div>   
+                </div>
+              </div>
+              </div>
+              <div style="display: inline; color:white">Vous avez déjà un compte ? Cliquez ici pour <a (click)="loginagain()" style="text-decoration: none;">Se Connecter</a></div>
+              <div class="mt-4 pt-2">
+                <button style="background-color: #72000486; color:white; margin-bottom: 10px;" class="btn btn-lg" type="submit" [disabled]="!r.valid || !verificationSuccess || EmailUsed || emailError || PasswordError">S'inscrire maintenant</button>
+              </div>
+              </form>
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
