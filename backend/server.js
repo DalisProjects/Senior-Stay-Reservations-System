@@ -11,8 +11,8 @@ const email = require('./email');
 const paypal = require('@paypal/checkout-server-sdk');
 
 // Set up PayPal SDK
-const clientId = 'AeaNL87M_VFadPZveZNsKvcuDUnTC0WlDmqq8eG2Gg7DSWo5QzCNAZK10hBQHnUZKImkgkYq66Wrv1kA';
-const clientSecret = 'ENyTqoektaBoywmSVAnBW9iNK7jXY0ycJS3L3yszc8iqMn1JB_cUmROSDi7WKX-9x7ek6Bi3OxPBqO-a';
+const clientId = 'Paypal Client ID';
+const clientSecret = 'Paypal Secret ID';
 
 const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
