@@ -19,15 +19,15 @@ app.post('/send-email', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ospisbooking@gmail.com',
-          pass: 'dooh kaqb zsrl zmgi'
+          user: 'PASTE EMAIL HERE',
+          pass: 'PASTE PASS HERE'
         },
         tls: {
           rejectUnauthorized: false // Add this line to disable SSL verification
         }
       });
     const mailOptions = {
-      from: "OspisBooking@gmail.com",
+      from: 'PASTE EMAIL HERE',
       to: req.body.email,
       subject: req.body.subject,
       html: req.body.html,
