@@ -53,6 +53,14 @@ node_modules/
 dist/
 .angular/
 *.log
+<<<<<<< HEAD
+# your local entries
+node_modules/
+dist/
+=======
+# remote entries
+README.md
+>>>>>>> 8fc8174
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
