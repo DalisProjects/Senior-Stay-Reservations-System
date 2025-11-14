@@ -19,24 +19,17 @@ app.post('/send-email', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-<<<<<<< HEAD
           user: 'ospisbooking@gmail.com',
-          pass: 'dooh kaqb zsrl zmgi'
-=======
+          pass: 'dooh kaqb zsrl zmgi',
           user: 'Email here', 
           pass: 'pass  here'
->>>>>>> 6642a1d07b9a97e2c7bdf7ce89657832a50388ea
         },
         tls: {
           rejectUnauthorized: false // Add this line to disable SSL verification
         }
       });
     const mailOptions = {
-<<<<<<< HEAD
       from: "OspisBooking@gmail.com",
-=======
-      from: "email from here",
->>>>>>> 6642a1d07b9a97e2c7bdf7ce89657832a50388ea
       to: req.body.email,
       subject: req.body.subject,
       html: req.body.html,
@@ -53,8 +46,4 @@ app.post('/send-email', (req, res) => {
     });
   });
 
-<<<<<<< HEAD
 module.exports = app;
-=======
-module.exports = app;
->>>>>>> 6642a1d07b9a97e2c7bdf7ce89657832a50388ea

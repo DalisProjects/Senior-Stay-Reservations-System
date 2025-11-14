@@ -13,17 +13,12 @@ const cron = require('node-cron');
 
 
 // Set up PayPal SDK
-<<<<<<< HEAD
-const clientId = 'AeaNL87M_VFadPZveZNsKvcuDUnTC0WlDmqq8eG2Gg7DSWo5QzCNAZK10hBQHnUZKImkgkYq66Wrv1kA';
-const clientSecret = 'ENyTqoektaBoywmSVAnBW9iNK7jXY0ycJS3L3yszc8iqMn1JB_cUmROSDi7WKX-9x7ek6Bi3OxPBqO-a';
-=======
 const clientId = 'PASTE ID HERE';
 const clientSecret = 'sECRET HERE';
->>>>>>> 6642a1d07b9a97e2c7bdf7ce89657832a50388ea
 
 const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
-app.use(email);
+app.use(email);s
 app.use(cors());
 
 
